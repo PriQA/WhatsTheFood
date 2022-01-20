@@ -2,10 +2,19 @@
 <div>
   <label>How hungry are you ?</label>
   <label>Calories: </label>  
-  <select>
+  <select  #calorieSelect (change)="filterCalorie(calorieSelect.value)">
+    <option value="0">--All--</option>
     <option *ngFor="let calorie of calories" value={{calorie}}>
       {{calorie}}
     </option>
   </select>
     
 </div>
+
+  <ag-grid-angular style="width: 600px; height: 400px;"
+                   class="ag-theme-alpine"
+                   [rowData]="foods"
+                   [columnDefs]="columnDefs">
+  </ag-grid-angular>
+
+

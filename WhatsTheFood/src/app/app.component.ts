@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'app-root',
@@ -7,28 +8,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public forecasts?: WeatherForecast[];
+  
   public calories?: any[];
+  public foods?: food[];
+  private http: HttpClient;
+
+  columnDefs: ColDef[] = [
+    { field: 'name' },
+    { field: 'calorie' },
+    { field: 'imageLocation' }];
 
   constructor(http: HttpClient) {
-
-    /*
-     http.get<WeatherForecast[]>('/weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
-    */
-
+    this.http = http;
     http.get<any[]>('/home/calories').subscribe(result => {
       this.calories = result;
     }, error => console.error(error));
+
+    this.http.get<food[]>('/food').subscribe(result => {
+      this.foods = result;
+    }, error => console.error(error));
+
   }
 
-  public filterCalory(filterVal: number) {
-    /*
-    if (filterVal == "0")
-      this.forecasts = this.cacheForecasts;
-    else
-      this.forecasts = this.cacheForecasts.filter((item) => item.summary == filterVal);*/
+  public filterCalorie(value: string) {
+
+    this.http.get<food[]>('/food/'+value).subscribe(result => {
+      this.foods = result;
+    }, error => console.error(error));
+
+
   }
 
   title = 'WhatsTheFood';
@@ -37,10 +45,12 @@ interface calorie {
   name: string;
 }
 
+interface calorie {
+  name: string;
+}
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+interface food {
+  name: string;
+  calorie: string;
+  imageLocation:string
 }
