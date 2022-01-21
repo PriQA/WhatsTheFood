@@ -16,28 +16,28 @@ namespace WhatsTheFoodService.Controllers
             {
                 new Food
                 {
-                Id = 1,
+                FoodId = 1,
                 Name = "Burger",
                 Calorie = 200,
                 ImageLocation ="./image/burger"
                 },
                 new Food
                 {
-                Id = 2,
+                FoodId = 2,
                 Name = "Salad",
                 Calorie = 100,
                 ImageLocation ="./image/Salad"
                 },
                 new Food
                 {
-                Id = 3,
+                FoodId = 3,
                 Name = "Ice cream",
                 Calorie = 300,
                 ImageLocation ="./image/iceCream"
                 },
                 new Food
                 {
-                Id = 4,
+                FoodId = 4,
                 Name = "Biriyani",
                 Calorie = 1000,
                 ImageLocation ="./image/Biriyani"
@@ -45,7 +45,7 @@ namespace WhatsTheFoodService.Controllers
                 ,
                 new Food
                 {
-                Id = 5,
+                FoodId = 5,
                 Name = "Subs",
                 Calorie = 500,
                 ImageLocation ="./image/Subs"
@@ -62,14 +62,14 @@ namespace WhatsTheFoodService.Controllers
             {
                 new Food
                 {
-                Id = 1,
+                FoodId = 1,
                 Name = "Burger",
                 Calorie = 200,
                 ImageLocation ="./image/burger"
                 },
                 new Food
                 {
-                Id = 2,
+                FoodId = 2,
                 Name = "Salad",
                 Calorie = 100,
                 ImageLocation ="./image/Salad"

@@ -3,15 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhatsTheFoodService.Models
 {
-    public class FoodCategory
+    public class UserFoodPreference
     {
         [Key]
-        public int FoodCategoryId { get; set; }
-        [ForeignKey("Category")]
+        public int UserFoodPreferenceId { get; set; }
+        [ForeignKey("User")]
         [Column(Order = 1)]
-        public int CategoryId { get; set; }
+        public int UserId { get; set; }
         [ForeignKey("Food")]
-        [Column(Order = 2)]
+        [Column(Order = 1)]
         public int FoodId { get; set; }
+
     }
 }
