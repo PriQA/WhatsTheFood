@@ -10,6 +10,7 @@ namespace WhatsTheFoodService.Models
         [ForeignKey("Category")]
         [Column(Order = 1)]
         public int CategoryId { get; set; }
+
         [ForeignKey("Food")]
         [Column(Order = 2)]
         public int FoodId { get; set; }
