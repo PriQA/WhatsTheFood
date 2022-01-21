@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using WhatsTheFoodService.Context;
 using WhatsTheFoodService.Models;
 
 namespace WhatsTheFoodService.Controllers
@@ -9,74 +13,26 @@ namespace WhatsTheFoodService.Controllers
     [Route("[controller]")]
     public class FoodController : ControllerBase
     {
+        private readonly ILogger<HomeController> _logger;
+        private readonly IApplicationDbContext _applicationDbContext;
+
+        public FoodController(ILogger<HomeController> logger, IApplicationDbContext applicationDbContext)
+        {
+            _logger = logger;
+            _applicationDbContext = applicationDbContext;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Food>>> Get()
         {
-            return new List<Food>
-            {
-                new Food
-                {
-                FoodId = 1,
-                Name = "Burger",
-                Calorie = 200,
-                ImageLocation ="./image/burger"
-                },
-                new Food
-                {
-                FoodId = 2,
-                Name = "Salad",
-                Calorie = 100,
-                ImageLocation ="./image/Salad"
-                },
-                new Food
-                {
-                FoodId = 3,
-                Name = "Ice cream",
-                Calorie = 300,
-                ImageLocation ="./image/iceCream"
-                },
-                new Food
-                {
-                FoodId = 4,
-                Name = "Biriyani",
-                Calorie = 1000,
-                ImageLocation ="./image/Biriyani"
-                }
-                ,
-                new Food
-                {
-                FoodId = 5,
-                Name = "Subs",
-                Calorie = 500,
-                ImageLocation ="./image/Subs"
-                }
-
-
-            };
+            return await _applicationDbContext.Foods.ToListAsync();
         }
 
         [HttpGet("{calorie:int}")]
         public async Task<ActionResult<List<Food>>> Get(int calorie)
         {
-            return  new List<Food>
-            {
-                new Food
-                {
-                FoodId = 1,
-                Name = "Burger",
-                Calorie = 200,
-                ImageLocation ="./image/burger"
-                },
-                new Food
-                {
-                FoodId = 2,
-                Name = "Salad",
-                Calorie = 100,
-                ImageLocation ="./image/Salad"
-                }
-
-            };
-        }   
+            return await _applicationDbContext.Foods.Where(x => x.Calorie <= calorie).ToListAsync();
+        }
     }
 }
 

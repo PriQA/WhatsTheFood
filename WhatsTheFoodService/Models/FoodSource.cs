@@ -10,9 +10,8 @@ namespace WhatsTheFoodService.Models
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
-        [MaxLength(10)]
-        public int PhoneNumber { get; set; }
+        [Required]       
+        public long PhoneNumber { get; set; }
         [MaxLength(200)]
         public string streetAddress1 { get; set; }
         [MaxLength(200)]
@@ -25,5 +24,7 @@ namespace WhatsTheFoodService.Models
         [Required]
         public string zipCode { get; set; }
         public string LogoLocation { get; set; }
+        [MaxLength(400)]
+        public string url { get; set; }
     }
 }

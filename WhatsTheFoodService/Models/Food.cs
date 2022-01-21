@@ -16,5 +16,7 @@ namespace WhatsTheFoodService.Models
         [Column(Order = 1)]
         public int FoodSourceId { get; set; }
         public string ImageLocation { get; set; }
+        [MaxLength(400)]
+        public string url { get; set; }
     }
 }

@@ -16,6 +16,7 @@ export class AppComponent {
   columnDefs: ColDef[] = [
     { field: 'name' },
     { field: 'calorie' },
+    { field: 'price' },
     { field: 'imageLocation' }];
 
   constructor(http: HttpClient) {

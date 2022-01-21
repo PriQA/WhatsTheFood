@@ -27,8 +27,7 @@ namespace WhatsTheFoodService.Models
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(10)]
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
         [MaxLength(200)]
         public string streetAddress1 { get; set; }
         [MaxLength(200)]
