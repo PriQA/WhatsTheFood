@@ -26,7 +26,7 @@ namespace WhatsTheFoodService.Controllers
         [Route("calories")]
         public string[] Calories()
         {            
-            return Enumerable.Range(1,2000).Select(x=>(x*100).ToString()).ToArray();
+            return Enumerable.Range(1,20).Select(x=>(x*100).ToString()).ToArray();
         }
 
        

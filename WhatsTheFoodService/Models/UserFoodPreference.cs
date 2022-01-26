@@ -11,7 +11,7 @@ namespace WhatsTheFoodService.Models
         [Column(Order = 1)]
         public int UserId { get; set; }
         [ForeignKey("Food")]
-        [Column(Order = 1)]
+        [Column(Order = 2)]
         public int FoodId { get; set; }
 
     }

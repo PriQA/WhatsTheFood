@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WhatsTheFoodService.Context;
 using Microsoft.EntityFrameworkCore;
+using WhatsTheFoodService.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace WhatsTheFoodService
 {
@@ -33,6 +35,9 @@ namespace WhatsTheFoodService
             services.AddDbContext<ApplicationDbContext>(options =>
                             options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllers();
 
         }

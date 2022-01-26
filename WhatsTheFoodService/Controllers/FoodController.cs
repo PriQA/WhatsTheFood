@@ -31,6 +31,10 @@ namespace WhatsTheFoodService.Controllers
         [HttpGet("{calorie:int}")]
         public async Task<ActionResult<List<Food>>> Get(int calorie)
         {
+            if (calorie == 0) 
+            {
+                return await _applicationDbContext.Foods.ToListAsync();
+            }
             return await _applicationDbContext.Foods.Where(x => x.Calorie <= calorie).ToListAsync();
         }
     }
