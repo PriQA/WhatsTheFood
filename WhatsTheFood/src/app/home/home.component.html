@@ -1,0 +1,31 @@
+<section fxLayout="column" fxFlexAlign="stretch">
+  <div fxFlexAlign="center">
+    <p>Whats the food</p>
+  </div>
+
+  <mat-tab-group (selectedTabChange)="executeSelectedChange($event)">
+    <mat-tab label="Tab1">
+      <div> How Hungry are you 
+        <select #calorieSelect (change)="filterCalorie(calorieSelect.value)">
+          <option value="0">--All--</option>
+          <option *ngFor="let calorie of calories" value={{calorie}}>
+            {{calorie}}
+          </option>
+        </select>
+      </div>
+      <div>
+        <ag-grid-angular style="width: 850px; height: 600px;"
+                         class="ag-theme-alpine"
+                         [rowData]="foods"
+                         [columnDefs]="columnDefs">
+        </ag-grid-angular>
+      </div>
+    </mat-tab>
+    <mat-tab label="Tab2">
+      <p>content</p>
+    </mat-tab>
+    <mat-tab label="Tab3">
+      <p>content</p>
+    </mat-tab>
+  </mat-tab-group>
+</section>

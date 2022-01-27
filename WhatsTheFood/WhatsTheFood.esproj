@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.4.0-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.4.0-alpha">
   <PropertyGroup Label="Globals">
     <ProjectGuid>5cac27a4-3601-4a2e-aaa5-4f8633a21e95</ProjectGuid>
   </PropertyGroup>
@@ -8,6 +8,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Script Include="**" Exclude="*.esproj;**\node_modules\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\app\layout\" />
+    <Folder Include="src\app\material\" />
+    <Folder Include="src\app\navigation\header\" />
+    <Folder Include="src\app\navigation\sidenav-list\" />
+    <Folder Include="src\app\routing\" />
   </ItemGroup>
   <!-- This target is copied from the ASP.NET SPA template in order to ensure node_modules are in place. -->
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

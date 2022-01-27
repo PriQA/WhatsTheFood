@@ -1,24 +1,16 @@
-<h1>Whats The Food</h1>
-<table>
-  <tr>
-    <td><label>How hungry are you ?</label> </td>
-    <td><label>Calories: </label> </td>
-    <td>
-      <select #calorieSelect (change)="filterCalorie(calorieSelect.value)">
-        <option value="0">--All--</option>
-        <option *ngFor="let calorie of calories" value={{calorie}}>
-          {{calorie}}
-        </option>
-      </select>
-    </td>
-  </tr>
-</table>
+<app-layout>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+      <!--this is a place for us to add side-nav code-->
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-header></app-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</app-layout>
 
-
-<ag-grid-angular style="width: 850px; height: 600px;"
-                 class="ag-theme-alpine"
-                 [rowData]="foods"
-                 [columnDefs]="columnDefs">
-</ag-grid-angular>
 
 
