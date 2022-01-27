@@ -42,14 +42,34 @@ namespace WhatsTheFoodService.Controllers
         }
 
 
-        [HttpPost("Registration")]
-        public async Task<IActionResult> RegisterUser([FromBody] User userDetails)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(string username , string password)
         {
-            if (userDetails == null || !ModelState.IsValid)
+            if (username == null || !ModelState.IsValid)
                 return BadRequest();
 
-           
+            if (username == null || !ModelState.IsValid)
+                return BadRequest();
+
             return StatusCode(200);
+        }
+
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate(string username, string password)
+        {
+            if (username == null || !ModelState.IsValid)
+                return BadRequest();
+
+            if (username == null || !ModelState.IsValid)
+                return BadRequest();
+
+            var users = await _applicationDbContext.Users.Where(x => x.UserName == username && x.Password == password && x.Enabled == true).ToListAsync();
+
+            if (users.Any())
+            {
+                return StatusCode(200);
+            }
+            return StatusCode(401);
         }
 
     }

@@ -1,55 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { AuthService } from '../_service/auth.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-
-
 export class SignupComponent implements OnInit {
+  form: any = {
+    username: null,
+    email: null,
+    password: null
+  };
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
 
- 
-  loading = false;
-  submitted = false;
+  constructor(private authService: AuthService) { }
 
-  constructor(public formGroup: FormGroup, private httpclient: HttpClient, private formBuilder: FormBuilder) {
-   
-  } 
-
-  ngOnInit() {
-    this.formGroup = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+  ngOnInit(): void {
   }
 
-  get f() { return this.formGroup.controls; }
+  onSubmit(): void {
+    const { username, email, password } = this.form;
 
-  public executeSelectedChange = (event: any) => {
-    console.log(event);
+    this.authService.signup(username, email, password).subscribe(
+      data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
+    );
   }
-
-  onSubmit() {
-    this.submitted = true;  
-
-    if (this.formGroup.invalid) {
-      return;
-    }
-
-    this.loading = true;
-   
-  }
-
 }
-
-interface user {
-  name: string;
-}
-

@@ -1,9 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
+import { AuthService } from '../_service/auth.service';
+import { TokenStorageService } from '../_service/token-storage.service';
 
 @Component({
   selector: 'app-signin',
@@ -11,33 +8,46 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./signin.component.css']
 })
 
-
 export class SigninComponent implements OnInit {
-   
-  private http: HttpClient;
-  loading = false;
-  submitted = false;
+  form: any = {
+    username: null,
+    password: null
+  };
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
 
-  constructor(public loginForm: FormGroup, http: HttpClient) {
-    this.http = http;   
-
-  }
-
-  get f() { return this.loginForm.controls; }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getUser().roles;
+    }
   }
 
-  public executeSelectedChange = (event: any) => {
-    console.log(event);
+  onSubmit(): void {
+    const { username, password } = this.form;
+
+    this.authService.signin(username, password).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getUser().roles;
+        this.reloadPage();
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    );
   }
 
-  onSubmit() {
-    this.submitted = true;
+  reloadPage(): void {
+    window.location.reload();
   }
-}
-
-interface user {
-  name: string;
-  password: string;
 }

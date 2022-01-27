@@ -14,7 +14,9 @@
     <Folder Include="src\app\material\" />
     <Folder Include="src\app\navigation\header\" />
     <Folder Include="src\app\navigation\sidenav-list\" />
+    <Folder Include="src\app\_helper\" />
     <Folder Include="src\app\routing\" />
+    <Folder Include="src\app\_service\" />
   </ItemGroup>
   <!-- This target is copied from the ASP.NET SPA template in order to ensure node_modules are in place. -->
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

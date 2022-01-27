@@ -11,7 +11,13 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { RoutingModule } from './routing/routing.module';
 import { HeaderComponent } from './navigation/header/header.component';
+import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { FormsModule } from '@angular/forms';
+
+import { authInterceptorProviders } from './_helper/auth.interceptor';
+import { ImageFormatterComponent } from "./_helper/ImageFormatterComponent";
 
 
 @NgModule({
@@ -20,7 +26,10 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     LayoutComponent,
     HomeComponent,
     HeaderComponent,
-    SidenavListComponent
+    SigninComponent,
+    SignupComponent,
+    SidenavListComponent,
+    ImageFormatterComponent
   ],
   imports: [
     CommonModule,
@@ -30,9 +39,11 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     FlexLayoutModule,
     RoutingModule,
     HttpClientModule,
-    AgGridModule.withComponents([])
+    FormsModule,
+    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([ImageFormatterComponent])
   ],  
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

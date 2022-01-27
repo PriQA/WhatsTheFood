@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
-
+import { ImageFormatterComponent } from "../_helper/ImageFormatterComponent";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-
 
 export class HomeComponent implements OnInit {
 
@@ -20,7 +19,14 @@ export class HomeComponent implements OnInit {
     { field: 'name' },
     { field: 'calorie' },
     { field: 'price' },
-    { field: 'imageLocation' }];
+    {
+      headerName: '',
+      field: 'imageLocation',
+      width: 100,
+      sortable: false,
+      autoHeight: true,
+      cellRendererFramework: ImageFormatterComponent
+    }];
 
   constructor(http: HttpClient) {
     this.http = http;
