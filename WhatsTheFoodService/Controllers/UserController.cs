@@ -79,16 +79,23 @@ namespace WhatsTheFoodService.Controllers
             }            
         }
 
-        [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate(string username, string password)
+        [HttpPost("signin")]
+        [Consumes("application/json")]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(ProblemDetails), 400)]
+        [ProducesResponseType(typeof(ProblemDetails), 401)]
+        [ProducesResponseType(typeof(ProblemDetails), 403)]
+        [ProducesResponseType(typeof(ProblemDetails), 500)]
+        [ProducesResponseType(typeof(ProblemDetails), 500)]
+        public async Task<IActionResult> Signin([FromBody] User user)
         {
-            if (username == null || !ModelState.IsValid)
+            if (string.IsNullOrEmpty(user.UserName))
                 return BadRequest();
 
-            if (username == null || !ModelState.IsValid)
+            if (string.IsNullOrEmpty(user.Password))
                 return BadRequest();
 
-            var users = await _applicationDbContext.Users.Where(x => x.UserName == username && x.Password == password && x.Enabled == true).ToListAsync();
+            var users = await _applicationDbContext.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).ToListAsync();
 
             if (users.Any())
             {

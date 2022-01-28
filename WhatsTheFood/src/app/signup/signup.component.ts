@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_service/auth.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -26,8 +25,7 @@ export class SignupComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-  token = "";
-
+ 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
 

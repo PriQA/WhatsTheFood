@@ -36,7 +36,8 @@ namespace WhatsTheFoodService
 
             services.AddDbContext<ApplicationDbContext>(options =>
                             options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+           
+            services.AddTransient<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 

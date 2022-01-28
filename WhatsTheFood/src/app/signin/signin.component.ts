@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_service/auth.service';
-import { TokenStorageService } from '../_service/token-storage.service';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-signin',
@@ -9,6 +9,7 @@ import { TokenStorageService } from '../_service/token-storage.service';
 })
 
 export class SigninComponent implements OnInit {
+  private httpClient: HttpClient;
   form: any = {
     username: null,
     password: null
@@ -18,34 +19,42 @@ export class SigninComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(httpClient: HttpClient) {
+    this.httpClient = httpClient;
+  }
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
-    }
+    //if (this.tokenStorage.getToken()) {
+    //  this.isLoggedIn = true;
+    //  this.roles = this.tokenStorage.getUser().roles;
+    //}
   }
 
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.signin(username, password).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-
-        this.isLoginFailed = false;
+    const url = '/user/signin';
+    const body = {
+      username, password
+    }
+    const headers = new Headers(
+      {
+        'Content-Type': 'application/json'
+      });
+    this.httpClient.post(url, body).subscribe({
+      next: data => {
+        // this.token = data.;
+        console.log(data);
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+        this.isLoginFailed = false;
       },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
+      error: error => {
+        this.errorMessage = error.message
+        console.error('There was an error!', error);
       }
-    );
+    })
   }
+
 
   reloadPage(): void {
     window.location.reload();
