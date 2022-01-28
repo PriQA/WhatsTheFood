@@ -23,12 +23,6 @@ namespace WhatsTheFoodService.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [MaxLength(200)]
-        [Required(ErrorMessage = "Email is required.")]
-        public string Email { get; set; }
-
-        [Required(ErrorMessage = "Phone Number is required.")]
-        public long PhoneNumber { get; set; }
-        [MaxLength(200)]
         public string streetAddress1 { get; set; }
         [MaxLength(200)]
         public string streetAddress2 { get; set; }

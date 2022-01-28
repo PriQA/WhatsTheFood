@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   signup(username: string, email: string, password: string, firstname: string, lastname: string, phonenumber: string, streetaddress1: string, streetaddress2: string, city: string, state: string, zipcode: string): Observable<any> {
-    return this.http.post('/home/user/register', {
+    return this.http.post('/user/register', {
       username,
       email,
       password,
