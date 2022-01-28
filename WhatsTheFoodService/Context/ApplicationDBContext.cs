@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 using WhatsTheFoodService.Models;
 
@@ -20,9 +21,19 @@ namespace WhatsTheFoodService.Context
         public DbSet<UserFoodPreference> userFoodPreferences { get; set; }
         public DbSet<FoodSource> FoodSources { get; set; }
 
-        public async Task<int> SaveChanges()
+        public new async Task<int> SaveChanges()
         {
-            return await base.SaveChangesAsync();
+            try
+            {
+                await base.SaveChangesAsync();
+            }
+            catch(Exception x)
+            {
+
+
+            }
+            return 0;
+            
         }
     }
 }

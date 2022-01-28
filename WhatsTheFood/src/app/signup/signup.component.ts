@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_service/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -7,6 +8,8 @@ import { AuthService } from '../_service/auth.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  private httpClient: HttpClient;
+
   form: any = {
     username: null,
     email: null,
@@ -23,25 +26,42 @@ export class SignupComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  token = "";
 
-  constructor(private authService: AuthService) { }
+  constructor(httpClient: HttpClient) {
+    this.httpClient = httpClient;
+
+  }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    const { username, email, password, firstname,lastname,phonenumber,streetaddress1, streetaddress2, city, state,zipcode} = this.form;
+    const { username, email, password, firstname, lastname, phonenumber, streetaddress1, streetaddress2, city, state, zipcode } = this.form;
 
-    this.authService.signup(username, email, password, firstname, lastname, phonenumber, streetaddress1, streetaddress2, city, state, zipcode).subscribe(
-      data => {
-        console.log(data);
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
-      },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
-      }
-    );
+        const url = '/user/register';
+        const body = {
+          username, email, password, firstname, lastname, phonenumber, streetaddress1, streetaddress2, city, state, zipcode 
+        }
+        const headers = new Headers(
+        {
+          'Content-Type': 'application/json'
+        });
+        this.httpClient.post(url, body).subscribe({
+          next: data => {
+           // this.token = data.;
+            console.log(data);
+            this.isSuccessful = true;
+            this.isSignUpFailed = false;
+          },
+          error: error => {
+            this.errorMessage = error.message
+            console.error('There was an error!', error);
+          }
+        })   
   }
 }
+
+
+
+

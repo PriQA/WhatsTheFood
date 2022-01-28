@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WhatsTheFoodService.Context;
 using WhatsTheFoodService.Models;
@@ -43,15 +45,38 @@ namespace WhatsTheFoodService.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(string username , string password)
+        [Consumes("application/json")]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(ProblemDetails),400)]
+        [ProducesResponseType(typeof(ProblemDetails), 401)]
+        [ProducesResponseType(typeof(ProblemDetails), 403)]
+        [ProducesResponseType(typeof(ProblemDetails), 500)]
+        [ProducesResponseType(typeof(ProblemDetails), 500)]
+        public async Task<IActionResult> Register([FromBody] User newUser)
         {
-            if (username == null || !ModelState.IsValid)
+            if (newUser == null || !ModelState.IsValid)
+            {
                 return BadRequest();
+            }
 
-            if (username == null || !ModelState.IsValid)
-                return BadRequest();
+            try
+            {
+                _applicationDbContext.Users.Add(newUser);
+                _ = _applicationDbContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch (Exception e)
+            {
 
-            return StatusCode(200);
+               var errorResponse = new ProblemDetails()
+                {
+                    Title = e.Message,
+                    Detail = e.InnerException.Message,
+                    Status = (int)HttpStatusCode.InternalServerError
+                };
+
+                return BadRequest(errorResponse);
+            }            
         }
 
         [HttpPost("authenticate")]
