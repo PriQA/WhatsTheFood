@@ -19,11 +19,19 @@ export class AuthService {
     }, httpOptions);
   }
 
-  signup(username: string, email: string, password: string): Observable<any> {
+  signup(username: string, email: string, password: string, firstname: string, lastname: string, phonenumber: string, streetaddress1: string, streetaddress2: string, city: string, state: string, zipcode: string): Observable<any> {
     return this.http.post('/home/user/register', {
       username,
       email,
-      password
+      password,
+      firstname,
+      lastname,
+      phonenumber,
+      streetaddress1,
+      streetaddress2,
+      city,
+      state,
+      zipcode
     }, httpOptions);
   }
 }

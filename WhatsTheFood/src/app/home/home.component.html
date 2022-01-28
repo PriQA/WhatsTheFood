@@ -3,12 +3,15 @@
     <p> How Hungry are you ?</p>
   </div>
   <div fxFlexAlign="center">
-    <select #calorieSelect (change)="filterCalorie(calorieSelect.value)">
-      <option value="0">--All--</option>
-      <option *ngFor="let calorie of calories" value={{calorie}}>
-        {{calorie}}
-      </option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Calories</mat-label>
+      <mat-select disableRipple (selectionChange)="filterCalorie($event.value)">
+        <mat-option value="0">--All--</mat-option>
+        <mat-option *ngFor="let calorie of calories" value={{calorie}}>
+          {{calorie}}
+        </mat-option>       
+      </mat-select>
+    </mat-form-field>
   </div>
   <!--<mat-tab-group (selectedTabChange)="executeSelectedChange($event)">
     <mat-tab label="Tab1">-->  

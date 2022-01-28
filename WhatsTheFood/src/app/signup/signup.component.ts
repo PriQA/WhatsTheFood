@@ -10,7 +10,15 @@ export class SignupComponent implements OnInit {
   form: any = {
     username: null,
     email: null,
-    password: null
+    password: null,
+    firstname: null,
+    lastname: null,
+    phonenumber: null,
+    streetaddress1: null,
+    streetaddress2: null,
+    city: null,
+    state: null,
+    zipcode: null
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -22,9 +30,9 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { username, email, password } = this.form;
+    const { username, email, password, firstname,lastname,phonenumber,streetaddress1, streetaddress2, city, state,zipcode} = this.form;
 
-    this.authService.signup(username, email, password).subscribe(
+    this.authService.signup(username, email, password, firstname, lastname, phonenumber, streetaddress1, streetaddress2, city, state, zipcode).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
