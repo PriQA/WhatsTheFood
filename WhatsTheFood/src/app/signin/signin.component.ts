@@ -29,10 +29,10 @@ export class SigninComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
-    }
+    //if (this.tokenStorage.getToken()) {
+    //  this.isLoggedIn = true;
+    //  this.roles = this.tokenStorage.getUser().roles;
+    //}
   }
 
   onSubmit(): void {
@@ -66,6 +66,7 @@ export class SigninComponent implements OnInit {
     })
 
   }
+
 
   reloadPage(): void {
     window.location.reload();
