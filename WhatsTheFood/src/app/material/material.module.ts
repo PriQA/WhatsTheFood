@@ -42,6 +42,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
+import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -118,6 +122,9 @@ import { MatTableModule } from '@angular/material/table';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule
+  ],
+  providers: [
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { float: 'always' } }
   ]
 })
 export class MaterialModule { }

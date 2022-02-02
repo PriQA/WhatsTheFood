@@ -13,6 +13,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logOut() {
+    localStorage.removeItem("jwt");
+
+  }
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
   }

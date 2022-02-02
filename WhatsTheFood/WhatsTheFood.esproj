@@ -10,11 +10,13 @@
     <Script Include="**" Exclude="*.esproj;**\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <Script Remove="src\app\preference\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="src\app\layout\" />
     <Folder Include="src\app\material\" />
     <Folder Include="src\app\navigation\header\" />
     <Folder Include="src\app\navigation\sidenav-list\" />
-    <Folder Include="src\app\_helper\" />
     <Folder Include="src\app\routing\" />
     <Folder Include="src\app\_service\" />
   </ItemGroup>

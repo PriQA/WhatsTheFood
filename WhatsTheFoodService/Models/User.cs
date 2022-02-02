@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhatsTheFoodService.Models
 {
-    public class User : IdentityUser
-    {
+    public class User:IdentityUser    {
         [Key]
         public int UserId { get; set; }
 
@@ -23,16 +22,19 @@ namespace WhatsTheFoodService.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [MaxLength(200)]
-        public string streetAddress1 { get; set; }
+        public string StreetAddress1 { get; set; }
         [MaxLength(200)]
-        public string streetAddress2 { get; set; }
+        public string StreetAddress2 { get; set; }
         [MaxLength(50)]
-        public string city { get; set; }
+        public string City { get; set; }
         [MaxLength(15)]
-        public string state { get; set; }
+        public string State { get; set; }
         [MaxLength(10)]
         [Required]
-        public string zipCode { get; set; }
+        public string ZipCode { get; set; }
+
+        [Required]
+        public string Role { get; set; }
 
     }
 }

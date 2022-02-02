@@ -73,13 +73,13 @@
                  name="firstname"
                  [(ngModel)]="form.firstname"
                  required
-                 minlength="3"
+                 minlength="1"
                  maxlength="20"
                  #firstname="ngModel" />
           <div class="alert-danger" *ngIf="firstname.errors && f.submitted">
             <div *ngIf="firstname.errors?.['required']">First name is required</div>
             <div *ngIf="firstname.errors?.['minlength']">
-              First name must be at least 3 characters
+              First name must be at least 1 characters
             </div>
             <div *ngIf="firstname.errors?.['maxlength']">
               First name must be at most 20 characters
@@ -96,13 +96,13 @@
                  name="lastname"
                  [(ngModel)]="form.lastname"
                  required
-                 minlength="3"
+                 minlength="1"
                  maxlength="20"
                  #lastname="ngModel" />
           <div class="alert-danger" *ngIf="lastname.errors && f.submitted">
             <div *ngIf="lastname.errors?.['required']">Last name is required</div>
             <div *ngIf="lastname.errors?.['minlength']">
-              Last must be at least 3 characters
+              Last must be at least 1 characters
             </div>
             <div *ngIf="lastname.errors?.['maxlength']">
               Last name must be at most 20 characters
@@ -118,20 +118,20 @@
                  name="phonenumber"
                  [(ngModel)]="form.phonenumber"
                  required
-                 minlength="3"
-                 maxlength="20"
+                 minlength="9"
+                 maxlength="10"
                  #phonenumber="ngModel" />
           <div class="alert-danger" *ngIf="phonenumber.errors && f.submitted">
             <div *ngIf="phonenumber.errors?.['required']">phone number is required</div>
             <div *ngIf="phonenumber.errors?.['minlength']">
-              Phone number length must be at least 10
+              Phone number length must be at least 9
             </div>
             <div *ngIf="phonenumber.errors?.['maxlength']">
-              Phone number length must be at most 11
+              Phone number length must be at most 10
             </div>
           </div>
         </div>
-        streetaddress1
+        <!--streetaddress1-->
         <div class="form-group">
           <label for="streetaddress1">Street Address1</label>
           <input type="text"
@@ -139,8 +139,8 @@
                  name="streetaddress1"
                  [(ngModel)]="form.streetaddress1"
                  required
-                 minlength="3"
-                 maxlength="20"
+                 minlength="1"
+                 maxlength="50"
                  #streetaddress1="ngModel" />
           <div class="alert-danger" *ngIf="streetaddress1.errors && f.submitted">
             <div *ngIf="streetaddress1.errors?.['required']">Street Address1 is required</div>
@@ -152,7 +152,7 @@
             </div>
           </div>
         </div>
-        streetaddress2
+        <!--streetaddress2-->
         <div class="form-group">
           <label for="streetaddress2">Street Address2</label>
           <input type="text"
@@ -160,8 +160,8 @@
                  name="streetaddress2"
                  [(ngModel)]="form.streetaddress2"
                  required
-                 minlength="3"
-                 maxlength="20"
+                 minlength="1"
+                 maxlength="50"
                  #streetaddress2="ngModel" />
           <div class="alert-danger" *ngIf="streetaddress2.errors && f.submitted">
             <div *ngIf="streetaddress2.errors?.['maxlength']">
@@ -177,8 +177,8 @@
                  name="city"
                  [(ngModel)]="form.city"
                  required
-                 minlength="3"
-                 maxlength="20"
+                 minlength="1"
+                 maxlength="50"
                  #city="ngModel" />
           <div class="alert-danger" *ngIf="city.errors && f.submitted">
             <div class="alert-danger" *ngIf="city.errors && f.submitted">
@@ -197,8 +197,8 @@
                  name="state"
                  [(ngModel)]="form.state"
                  required
-                 minlength="3"
-                 maxlength="20"
+                 minlength="1"
+                 maxlength="50"
                  #state="ngModel" />
           <div class="alert-danger" *ngIf="state.errors && f.submitted">
             <div class="alert-danger" *ngIf="state.errors && f.submitted">
@@ -218,8 +218,8 @@
                  name="zipcode"
                  [(ngModel)]="form.zipcode"
                  required
-                 minlength="3"
-                 maxlength="20"
+                 minlength="5"
+                 maxlength="5"
                  #zipcode="ngModel" />
           <div class="alert-danger" *ngIf="zipcode.errors && f.submitted">
             <div class="alert-danger" *ngIf="zipcode.errors && f.submitted">

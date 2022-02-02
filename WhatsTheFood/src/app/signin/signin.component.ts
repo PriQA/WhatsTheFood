@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_service/auth.service';
+import { HttpClient } from '@angular/common/http';
 import { TokenStorageService } from '../_service/token-storage.service';
+
 
 @Component({
   selector: 'app-signin',
@@ -9,6 +10,8 @@ import { TokenStorageService } from '../_service/token-storage.service';
 })
 
 export class SigninComponent implements OnInit {
+  private httpClient: HttpClient;
+
   form: any = {
     username: null,
     password: null
@@ -17,8 +20,13 @@ export class SigninComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  firstname = "";
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(httpClient: HttpClient, private tokenStorage: TokenStorageService) {
+    this.httpClient = httpClient;
+
+  }
+
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -30,24 +38,44 @@ export class SigninComponent implements OnInit {
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.signin(username, password).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
+    const url = '/user/authenticate';
+    const body = {
+      username, password
+    }
+    const headers = new Headers(
+      {
+        'Content-Type': 'application/json'
+      });
+    this.httpClient.post<authenticationReponse>(url, body).subscribe({
+      next: data => {
+        this.tokenStorage.saveToken(data.token);
+        this.tokenStorage.saveUser(data.role);
         this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+        this.firstname = data.firstName;        
+        console.log(data);
+        this.isLoggedIn = true;
+        this.isLoginFailed = false;
+       
+
       },
-      err => {
-        this.errorMessage = err.error.message;
+      error: error => {
+        this.errorMessage = error.message
         this.isLoginFailed = true;
+        console.error('There was an error!', error);
       }
-    );
+    })
+
   }
 
   reloadPage(): void {
     window.location.reload();
   }
+}
+
+interface authenticationReponse {
+  isAuthenticated: boolean;
+  token: string;
+  role:string
+  firstName: string;
+  lastName: string;
 }

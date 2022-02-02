@@ -1,0 +1,15 @@
+<h3>Likes</h3>
+<form [formGroup]="prefernceForm" (ngSubmit)="onFormSubmit()">
+  <mat-selection-list formControlName="selectedLikes">
+    <mat-list-option *ngFor="let ingredient of ingredients" [value]="ingredientId">
+      {{name}}
+    </mat-list-option>
+  </mat-selection-list>
+  <h3>Dislikes</h3>
+  <mat-selection-list formControlName="selectedDislikes">
+    <mat-list-option *ngFor="let ingredient of ingredients" [value]="ingredientId">
+      {{name}}
+    </mat-list-option>
+  </mat-selection-list>
+  <button mat-raised-button color="warn">Submit</button>
+</form>

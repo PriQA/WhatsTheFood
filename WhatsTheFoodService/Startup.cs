@@ -16,7 +16,10 @@ using Microsoft.EntityFrameworkCore;
 using WhatsTheFoodService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WhatsTheFoodService.TokenService;
 
 namespace WhatsTheFoodService
 {
@@ -36,10 +39,30 @@ namespace WhatsTheFoodService
 
             services.AddDbContext<ApplicationDbContext>(options =>
                             options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.AddScoped<IApplicationDbContext,ApplicationDbContext>();
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+           
 
+            var jwtSettings = Configuration.GetSection("JwtSettings");
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.GetSection("validIssuer").Value,
+                    ValidAudience = jwtSettings.GetSection("validAudience").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.GetSection("securityKey").Value))
+                };
+            });
+
+            services.AddScoped<JwtHandler>();
             services.AddControllers();
             services.AddSwaggerGen();
 

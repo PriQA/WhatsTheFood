@@ -18,6 +18,8 @@ namespace WhatsTheFoodService.Context
         public DbSet<FoodIngredient> FoodIngredients { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserDislike> UserDislikes { get; set; }
+
+        public DbSet<UserLike> UserLikes { get; set; }
         public DbSet<UserFoodPreference> userFoodPreferences { get; set; }
         public DbSet<FoodSource> FoodSources { get; set; }
 
